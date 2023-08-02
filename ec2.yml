@@ -1,0 +1,10 @@
+Resources:
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-0ded8326293d3201b"
+      KeyName: "mumbai"
+      SubnetId: "subnet-e58fafa9"
+      InstanceType: "t2.micro"
+      SecurityGroupIds:
+      - sg-0fbebfd9572febce5
