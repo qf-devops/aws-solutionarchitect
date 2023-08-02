@@ -1,10 +1,14 @@
 Resources:
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: MyKeyPair
   MyEC2Instance: 
     Type: AWS::EC2::Instance
     Properties: 
       ImageId: "ami-0ded8326293d3201b"
-      KeyName: "mumbai"
+      KeyName: !Ref NewKeyPair
       SubnetId: "subnet-e58fafa9"
-      InstanceType: "t2.micro"
+      InstanceType: "t2.small"
       SecurityGroupIds:
       - sg-0fbebfd9572febce5
