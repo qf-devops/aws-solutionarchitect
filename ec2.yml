@@ -1,14 +1,35 @@
 Resources:
+  AMI:
+    Type: Custom::AMI
+    Properties:
+      Filters:
+        name: 'amzn-ami-2017.09.a-amazon-ecs-optimized'
+      ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-ami-provider'
   NewKeyPair:
     Type: 'AWS::EC2::KeyPair'
     Properties:
       KeyName: MyKeyPair
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref myVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
   MyEC2Instance: 
     Type: AWS::EC2::Instance
     Properties: 
-      ImageId: "ami-0ded8326293d3201b"
+      ImageId: !Ref AMI
       KeyName: !Ref NewKeyPair
       SubnetId: "subnet-e58fafa9"
       InstanceType: "t2.small"
       SecurityGroupIds:
-      - sg-0fbebfd9572febce5
+      - !GetAtt InstanceSecurityGroup.GroupId
