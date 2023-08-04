@@ -1,0 +1,8 @@
+sudo apt-get update
+sudo apt-get install -y git binutils make
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+make deb
+sudo apt-get install -y ./build/amazon-efs-utils*deb
+
+ref; https://docs.aws.amazon.com/efs/latest/ug/installing-amazon-efs-utils.html
