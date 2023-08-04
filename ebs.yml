@@ -1,10 +1,15 @@
 Resources:
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: MyKeyPair
   MyEc2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      KeyName: "mumbai"
+      KeyName: !Ref NewKeyPair
       ImageId: "ami-0f5ee92e2d63afc18"
       InstanceType: "t2.small"
+      SubnetId: "subnet-1195677a"
 
   MyVolume:
     Type: 'AWS::EC2::Volume'
