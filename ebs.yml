@@ -1,0 +1,15 @@
+Resources:
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-0f5ee92e2d63afc18"
+      KeyName: "testkey"
+      BlockDeviceMappings: 
+      - DeviceName: "/dev/sdm"
+        Ebs: 
+          VolumeType: "gp2"
+          Iops: "100"
+          DeleteOnTermination: "false"
+          VolumeSize: "1"
+      - DeviceName: "/dev/sdk"
+        NoDevice: {}
