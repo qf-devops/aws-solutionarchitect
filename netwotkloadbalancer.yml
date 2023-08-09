@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Template for Network Load Balancer
+
+Resources:
+  MyNetworkLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: MyNetworkLoadBalancer
+      Subnets:
+        - subnet-e58fafa9
+        - subnet-1195677a
+      LoadBalancerAttributes:
+        - Key: idle_timeout.timeout_seconds
+          Value: '60'
+      Scheme: internet-facing
+      Tags:
+        - Key: Name
+          Value: MyNetworkLoadBalancer
+
+  MyTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: MyTargetGroup
+      Port: 80
+      Protocol: TCP
+      VpcId: 'vpc-12f92c79'
+      HealthCheckIntervalSeconds: 30
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 10
+      HealthyThresholdCount: 3
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: 200
+      TargetType: ip
+
+  MyListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: fixed-response
+          FixedResponseConfig:
+            StatusCode: 200
+            ContentType: text/plain
+            MessageBody: 'Hello, world!'
+      LoadBalancerArn: !Ref MyNetworkLoadBalancer
+      Port: 80
+      Protocol: HTTP
+
+Outputs:
+  LoadBalancerDNSName:
+    Description: DNS name of the Network Load Balancer
+    Value: !GetAtt MyNetworkLoadBalancer.DNSName
