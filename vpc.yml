@@ -45,10 +45,14 @@ Resources:
       Tags:
       - Key: stack
         Value: production
-  myGatewayRouteTableAssociation:
-    Type: AWS::EC2::GatewayRouteTableAssociation
-    Properties: 
-      GatewayId: 
-        Ref: myInternetGateway
-      RouteTableId: 
-        Ref: myRouteTable
+  myAttachGateway:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+        VpcId: !Ref myVPC
+        InternetGatewayId: !Ref MyInternetGateway
+  myRoute:
+    Type: AWS::EC2::Route
+    Properties:
+       RouteTableId: !Ref: myRouteTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId: !Ref: myInternetGateway
