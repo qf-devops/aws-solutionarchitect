@@ -104,11 +104,17 @@ Resources:
       ImageId: "ami-0da59f1af71ea4ad2"
       KeyName:
          Ref: myNewKeyPair
-      SubnetId: !Ref publicSubnet
+      # SubnetId: !Ref publicSubnet
       NetworkInterfaces:
-      - NetworkInterfaceId:
-         Ref: myENI
-        DeviceIndex: '1'
+      # - NetworkInterfaceId:
+      #    Ref: myENI
+      #   DeviceIndex: '0'
       InstanceType: "t2.micro"
-      SecurityGroupIds:
-      - !GetAtt myInstanceSecurityGroup.GroupId
+      # SecurityGroupIds:
+      # - !GetAtt myInstanceSecurityGroup.GroupId
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
+          GroupSet:
+            - !GetAtt myInstanceSecurityGroup.GroupId
+          SubnetId: !Ref publicSubnet
