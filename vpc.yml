@@ -31,3 +31,24 @@ Resources:
       Tags:
       - Key: stack
         Value: production    
+  myRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: myVPC
+      Tags:
+      - Key: stack
+        Value: production
+  myInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: stack
+        Value: production
+  myGatewayRouteTableAssociation:
+    Type: AWS::EC2::GatewayRouteTableAssociation
+    Properties: 
+      GatewayId: 
+        Ref: myInternetGateway
+      RouteTableId: 
+        Ref: myRouteTable
