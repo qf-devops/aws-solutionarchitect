@@ -95,7 +95,7 @@ Resources:
         Description: A nice description.
         SourceDestCheck: 'false'
         GroupSet:
-        - myInstanceSecurityGroup.GroupId
+        - !GetAtt myInstanceSecurityGroup.GroupId
         SubnetId: !Ref publicSubnet
         PrivateIpAddress: 10.0.2.16
   myEC2Instance: 
