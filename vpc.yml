@@ -46,13 +46,13 @@ Resources:
       - Key: stack
         Value: production
   myAttachGateway:
-      Type: AWS::EC2::VPCGatewayAttachment
-      Properties:
-        VpcId: !Ref myVPC
-        InternetGatewayId: !Ref MyInternetGateway
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref myVPC
+      InternetGatewayId: !Ref MyInternetGateway
   myRoute:
     Type: AWS::EC2::Route
     Properties:
-       RouteTableId: !Ref: myRouteTable
-       DestinationCidrBlock: 0.0.0.0/0
-       GatewayId: !Ref: myInternetGateway
+      RouteTableId: !Ref myRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref myInternetGateway
