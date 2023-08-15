@@ -61,12 +61,12 @@ Resources:
     Properties:
       SubnetId: !Ref publicSubnet
       RouteTableId: !Ref myRouteTable
-  myAMI:
-    Type: Custom::AMI
-    Properties:
-      Filters:
-        name: 'amzn-ami-2017.09.a-amazon-ecs-optimized'
-      ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-ami-provider'
+  # myAMI:
+  #   Type: Custom::AMI
+  #   Properties:
+  #     Filters:
+  #       name: 'amzn-ami-2017.09.a-amazon-ecs-optimized'
+  #     ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-ami-provider'
   myNewKeyPair:
     Type: 'AWS::EC2::KeyPair'
     Properties:
@@ -101,8 +101,9 @@ Resources:
   myEC2Instance: 
     Type: AWS::EC2::Instance
     Properties: 
-      ImageId: !Ref myAMI
-      KeyName: !Ref myNewKeyPair
+      ImageId: "ami-0da59f1af71ea4ad2"
+      KeyName:
+         Ref: myNewKeyPair
       SubnetId: !Ref publicSubnet
       NetworkInterfaces:
       - NetworkInterfaceId:
