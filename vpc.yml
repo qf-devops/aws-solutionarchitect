@@ -49,10 +49,65 @@ Resources:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref myVPC
-      InternetGatewayId: !Ref MyInternetGateway
+      InternetGatewayId: !Ref myInternetGateway
   myRoute:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId: !Ref myRouteTable
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref myInternetGateway
+  mySubnetAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref publicSubnet
+      RouteTableId: !Ref myRouteTable
+  myAMI:
+    Type: Custom::AMI
+    Properties:
+      Filters:
+        name: 'amzn-ami-2017.09.a-amazon-ecs-optimized'
+      ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-ami-provider'
+  myNewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: MyKeyPair
+  myInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref myVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+  myENI:
+    Type: AWS::EC2::NetworkInterface
+    Properties:
+        Tags:
+        - Key: stack
+          Value: production
+        Description: A nice description.
+        SourceDestCheck: 'false'
+        GroupSet:
+        - myInstanceSecurityGroup.GroupId
+        SubnetId: !Ref publicSubnet
+        PrivateIpAddress: 10.0.2.16
+  myEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: !Ref myAMI
+      KeyName: !Ref myNewKeyPair
+      SubnetId: !Ref publicSubnet
+      NetworkInterfaces:
+      - NetworkInterfaceId:
+         Ref: myENI
+        DeviceIndex: '1'
+      InstanceType: "t2.micro"
+      SecurityGroupIds:
+      - !GetAtt myInstanceSecurityGroup.GroupId
