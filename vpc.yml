@@ -26,8 +26,8 @@ Resources:
     Properties:
       VpcId:
         Ref: myVPC
-      CidrBlock: 10.0.0.0/24
-      AvailabilityZone: "us-east-1a"
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: "ap-south-1b"
       Tags:
       - Key: stack
         Value: production    
