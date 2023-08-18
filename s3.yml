@@ -1,0 +1,32 @@
+Resources:
+  S3Bucketdest:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: demo18082023122
+      VersioningConfiguration:
+        Status: Enabled
+  S3Bucketsrc:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: demo1808202312
+      VersioningConfiguration:
+        Status: Enabled
+      ReplicationConfiguration:
+        Role: 'arn:aws:iam::675467602881:role/replication-role'
+        Rules:
+          - Id: MyRule1
+            Status: Enabled
+            Prefix: MyPrefix
+            Destination:
+              Bucket: 'arn:aws:s3:::demo18082023122'
+              StorageClass: STANDARD
+          - Status: Enabled
+            Prefix: MyOtherPrefix
+            Destination:
+              Bucket: !GetAtt S3Bucketdest.Arn
+                # Fn::Join:
+                #         - ''
+                #         - - 'arn:aws:s3:::'
+                #           - Ref: 'S3Bucketdest'
