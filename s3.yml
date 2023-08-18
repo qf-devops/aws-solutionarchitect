@@ -20,13 +20,9 @@ Resources:
             Status: Enabled
             Prefix: MyPrefix
             Destination:
-              Bucket: 'arn:aws:s3:::demo18082023122'
+              Bucket: !GetAtt S3Bucketdest.Arn
               StorageClass: STANDARD
           - Status: Enabled
             Prefix: MyOtherPrefix
             Destination:
               Bucket: !GetAtt S3Bucketdest.Arn
-                # Fn::Join:
-                #         - ''
-                #         - - 'arn:aws:s3:::'
-                #           - Ref: 'S3Bucketdest'
