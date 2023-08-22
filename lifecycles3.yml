@@ -1,0 +1,16 @@
+Resources:
+  MyS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: my-example-bucket
+      AccessControl: Private
+      LifecycleConfiguration:
+        Rules:
+          - Id: Rule1
+            Status: Enabled
+            Transition:
+              Days: 30
+              StorageClass: GLACIER
+          - Id: Rule2
+            Status: Enabled
+            ExpirationInDays: 90
