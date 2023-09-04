@@ -34,3 +34,27 @@ Resources:
       Description: List Amazon S3 buckets in us-east-1.
       TracingConfig:
         Mode: Active
+  myDynamoDBTable: 
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "order_id"
+          AttributeType: "S"
+        - 
+          AttributeName: "order_date"
+          AttributeType: "S"
+        - 
+          AttributeName: "user_email"
+          AttributeType: "S"
+        - 
+          AttributeName: "amount"
+          AttributeType: "N"
+      KeySchema: 
+        - 
+          AttributeName: "order_id"
+          KeyType: "HASH"
+      ProvisionedThroughput: 
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: "myTableName"
