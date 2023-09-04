@@ -1,11 +1,34 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Lambda function ListBucketsCommand.
 Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: lambda-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+            - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
+      Path: /
   primer:
     Type: AWS::Lambda::Function
     Properties:
       Runtime: python3.7
-      Role: arn:aws:iam::675467602881:role/service-role/myLambdaFn-role-iai9vyh2
+      Role:
+        Fn::GetAtt:
+          - LambdaRole
+          - Arn
       Handler: index.handler
       Code:
         ZipFile: |
@@ -41,15 +64,6 @@ Resources:
         - 
           AttributeName: "order_id"
           AttributeType: "S"
-        - 
-          AttributeName: "order_date"
-          AttributeType: "S"
-        - 
-          AttributeName: "user_email"
-          AttributeType: "S"
-        - 
-          AttributeName: "amount"
-          AttributeType: "N"
       KeySchema: 
         - 
           AttributeName: "order_id"
