@@ -1,0 +1,132 @@
+   
+   eksctl:
+   https://eksctl.io/introduction/#installation
+   https://eksctl.io/usage/creating-and-managing-clusters/
+https://github.com/kubernetes/dashboard
+
+    1  touch a.sh
+    2  vi a.sh 
+    3  chmod 777 a.sh
+    4  sh a.sh 
+    5  ls -lrt
+    6  which eksctl
+    7  vi eks-config.yaml
+    8  eksctl create cluster -f eks-config.yaml 
+    9  aws
+   10  apt  install awscli
+   11  apt update
+   12  apt  install awscli
+   13  clear
+   14  aws configure
+   15  aws s3 ls
+   16  clear
+   17  eksctl create cluster -f eks-config.yaml 
+   18  ls -lrt
+   19  chmod +x kubectl
+   20  mkdir -p ~/.local/bin
+   21  mv ./kubectl ~/.local/bin/kubectl
+   22  export PATH=$PATH:~/.local/bin
+   23  which kubectl
+   24  kubectl get node 
+   25  ls -lrt
+   26  clear
+   27  curl -O https://s3.ap-south-1.amazonaws.com/amazon-eks/1.25.12/2023-08-16/bin/linux/amd64/kubectl
+   28  ls -lrt
+   29  mv kubectl ~/.local/bin/
+   30  kubectl --version
+   31  chmod +x ~/.local/bin/kubectl 
+   32  kubectl --version
+   33  curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.25.12/2023-08-16/bin/linux/amd64/kubectl
+   34  ls -lrt
+   35  chmod +x kubectl 
+   36  mv kubectl ~/.local/bin/
+   37  kubectl --version
+   38  kubectl -version
+   39  kubectl version
+   40  kubectl version --short --client
+   41  clear
+   42  aws eks update-kubeconfig --region ap-south-1 --name\ cluster-in-existing-vpc
+   43  aws eks update-kubeconfig --region ap-south-1 --name cluster-in-existing-vpc
+   44  cd
+   45  cd .ki
+   46  cd .kube/
+   47  ls -let
+   48  ls -lrt
+   49  cat config 
+   50  clear
+   51  cd
+   52  kubectl get noide
+   53  kubectl get node
+   54  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.25.12/bin/darwin/amd64/kubectl
+   55  mv ~/.local/bin/
+   56  mmv kubectl ~/.local/bin/
+   57  mv kubectl ~/.local/bin/
+   58  kubectl get node
+   59  chmod 777 ~/.local/bin/kubectl 
+   60  kubectl get node
+   61  ls -lrt
+   62  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.25.12/bin/darwin/amd64/kubectl
+   63  ls -lrt
+   64  chmod +x kubectl 
+   65  ./kubectl get node
+   66  rm kubectl 
+   67  clear
+   68  curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+   69  chmod 777 kubectl 
+   70  ./kubectl get node
+   71  curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+   72  ls -lrt
+   73  curl -L -s https://dl.k8s.io/release/stable.txt
+   74  vi install.sh
+   75  rm -rf .local
+   76  exit
+   77  clear
+   78  ls -lrt
+   79  sh install.sh 
+   80  cat install.sh 
+   81  which kubectl
+   82  kubectl get node
+   83  vi install.sh 
+   84  sh install.sh 
+   85  kubectl get node
+   86  rm -rf /usr/local/bin/
+   87  which kubectl
+   88  sh install.sh 
+   89  ls -lrt
+   90  mv kubectl /usr/local/bin/
+   91  mkdir /usr/local/bin
+   92  mv kubectl /usr/local/bin/
+   93  which kubectl
+   94  kubectl get node
+   95  vi .kube/config 
+   96  clear
+   97  kubectl get node
+   98  kubectl version
+   99  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+  100  ls -lrt
+  101  mv kubectl /usr/local/bin/
+  102  clear
+  103  kubectl get node
+  104  chmod 777 /usr/local/bin/kubectl 
+  105  kubectl get node
+  106  history |grep aws
+  107  kubectl get node
+  108  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+  109  vi dashboard.yml
+  110  kubectl apply -f dashboard.yml 
+  111  kubectl get svc -n kubernetes-dashboard
+  112  kubectl get -f dashboard.yml 
+  113  clear
+  114  touch role.yml
+  115  vi role.yml 
+  116  kubectl apply -f role.yml 
+  117  kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+  118  kubectl run  n1 --image=nginx --port=80 
+  119  kubectl expose POD n1 --port=80 --target-port=80  --name=n1s --type=LoadBalancer
+  120  kubectl get svc
+  121  kubectl delete -f dashboard.yml 
+  122  kubectl delete svc n1s
+  123  clear
+  124  eksctl delete cluster -f cluster.yaml --disable-nodegroup-eviction
+  125  pwd
+  126  history
